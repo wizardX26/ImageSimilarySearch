@@ -17,9 +17,8 @@ class ProductService: ProductServiceType {
     private let provider = MoyaProvider<MyAPI>()
     
     func fetchProducts(type: String) -> Single<[Product]> {
-        return provider.rx.request(.resource(category: "products", type: type))
+        return provider.rx.request(.products)
             .filterSuccessfulStatusCodes()
-            .map(ProductList.self)
-            .map { $0.products }
+            .map([Product].self)
     }
 }

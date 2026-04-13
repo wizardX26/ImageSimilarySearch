@@ -31,7 +31,7 @@ final class ViewController: UIViewController {
         // Tối ưu: Load data trên background thread
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             DispatchQueue.main.async {
-                self?.productVM.fetchTrigger.accept("liquor")
+                self?.productVM.fetchTrigger.accept("")
             }
         }
     }
@@ -84,7 +84,7 @@ final class ViewController: UIViewController {
         }
         .bind(to: collectionView.rx.items(cellIdentifier: CollectionViewCell.identifier, cellType: CollectionViewCell.self)) { _, product, cell in
             // Tối ưu: Pre-compute URL và load image trên background
-            let url = URL(string: APIConfig.baseURLString + "/uploads/" + product.img)
+            let url = URL(string: product.image)
             // Tối ưu: Kingfisher với background processing
             KF.url(url)
                 .placeholder(UIImage(named: "placeholder"))
@@ -92,7 +92,7 @@ final class ViewController: UIViewController {
 //                .cacheMemoryOnly = false
 //                .backgroundDecode = true
                 .set(to: cell.imageView)
-            cell.titleLabel.text = product.name
+            cell.titleLabel.text = product.title
         }
         .disposed(by: disposeBag)
 

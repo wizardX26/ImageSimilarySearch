@@ -119,7 +119,7 @@ final class ProductViewModel {
                                 } else {
                                     print("[Flow] 📋 [ProductViewModel] Matching products:")
                                     for (index, product) in results.prefix(5).enumerated() {
-                                        print("[Flow]   \(index + 1). \(product.name)")
+                                        print("[Flow]   \(index + 1). \(product.title)")
                                     }
                                     if results.count > 5 {
                                         print("[Flow]   ... and \(results.count - 5) more")

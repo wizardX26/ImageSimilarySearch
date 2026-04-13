@@ -55,7 +55,7 @@ final class ImageLabelMatchingService {
         let filteredProducts = products.filter { product in
             // Chỉ search trong products có name không rỗng
             switch keyPath {
-            case "name": return !product.name.isEmpty
+            case "name": return !product.title.isEmpty
             case "description": return !product.description.isEmpty
             default: return true
             }
@@ -92,7 +92,7 @@ final class ImageLabelMatchingService {
                     let fieldValue: String
                     switch keyPath {
                     case "name":
-                        fieldValue = product.name
+                        fieldValue = product.title
                     case "description":
                         fieldValue = product.description
                     default:
@@ -120,7 +120,7 @@ final class ImageLabelMatchingService {
                 let results = scored
                     .sorted { (l, r) in
                         if l.1 != r.1 { return l.1 > r.1 }
-                        return l.0.name.count < r.0.name.count
+                        return l.0.title.count < r.0.title.count
                     }
                     .prefix(20) // Chỉ lấy top 20 kết quả
                     .map { $0.0 }
@@ -128,7 +128,7 @@ final class ImageLabelMatchingService {
                 print("[Flow] 🏆 [ImageSimilarityService] Top results:")
                 for (index, product) in results.enumerated() {
                     if let score = scored.first(where: { $0.0.id == product.id })?.1 {
-                        print("[Flow]   \(index + 1). \(product.name) (score: \(score))")
+                        print("[Flow]   \(index + 1). \(product.title) (score: \(score))")
                     }
                 }
                 
